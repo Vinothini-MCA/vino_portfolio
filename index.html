@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vinothini S | MCA Student &amp; Web Developer</title>
+<meta name="description" content="Portfolio of Vinothini S, MCA student and aspiring software developer.">
+<style>
+/* ========== 1. THEME (change colors here) ========== */
+:root{
+  --bg:#12091F; --bg2:#1E1033; --accent:#39FF14;
+  --text:#FFFFFF; --muted:#C8B8E8;
+  --glass:rgba(255,255,255,.05); --border:rgba(200,184,232,.18);
+  --glow:0 0 18px rgba(57,255,20,.45);
+  --font:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"Cascadia Code",Consolas,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+img,svg{max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.container{width:min(1120px,100% - 40px);margin-inline:auto}
+section{padding:90px 0}
+section:nth-of-type(even){background:var(--bg2)}
+.accent{color:var(--accent)}
+h2.title{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:12px;text-align:center}
+h2.title::after{content:"";display:block;width:64px;height:4px;margin:12px auto 0;border-radius:4px;background:var(--accent);box-shadow:var(--glow)}
+.subtitle{text-align:center;color:var(--muted);margin-bottom:48px}
+
+/* Glassmorphism card */
+.card{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:26px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 28px rgba(0,0,0,.3);
+  transition:transform .3s,border-color .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 8px 28px rgba(0,0,0,.4),var(--glow)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:50px;font-weight:600;
+  font-size:.95rem;cursor:pointer;border:2px solid var(--accent);font-family:inherit;transition:.3s}
+.btn-fill{background:var(--accent);color:var(--bg);box-shadow:var(--glow)}
+.btn-fill:hover{box-shadow:0 0 30px rgba(57,255,20,.8);transform:translateY(-2px)}
+.btn-line{background:transparent;color:var(--accent)}
+.btn-line:hover{background:var(--accent);color:var(--bg);box-shadow:var(--glow)}
+.btn-sm{padding:8px 18px;font-size:.85rem}
+
+/* ========== 2. NAVBAR ========== */
+header{position:fixed;inset:0 0 auto;z-index:100;background:rgba(18,9,31,.8);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-size:1.6rem;font-weight:800;color:var(--accent);text-shadow:var(--glow);letter-spacing:1px}
+.nav-links{display:flex;align-items:center;gap:26px}
+.nav-links a:not(.btn){color:var(--muted);font-size:.95rem;position:relative;transition:color .3s}
+.nav-links a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:not(.btn):hover,.nav-links a.active{color:var(--accent)}
+.nav-links a:not(.btn):hover::after,.nav-links a.active::after{width:100%}
+.burger{display:none;background:none;border:0;cursor:pointer;width:32px;height:24px;position:relative}
+.burger span{position:absolute;left:0;width:100%;height:3px;border-radius:3px;background:var(--accent);transition:.3s}
+.burger span:nth-child(1){top:0}.burger span:nth-child(2){top:10px}.burger span:nth-child(3){top:20px}
+.burger.open span:nth-child(1){top:10px;transform:rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){top:10px;transform:rotate(-45deg)}
+
+/* ========== 3. HERO ========== */
+#home{min-height:100vh;display:flex;align-items:center;padding-top:110px;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 80% 20%,rgba(120,60,200,.35),transparent 55%),var(--bg)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hello{color:var(--accent);letter-spacing:4px;font-weight:600;font-size:.95rem}
+.hero h1{font-size:clamp(2.8rem,8vw,5rem);line-height:1.1;margin:6px 0 14px}
+.typing{font-family:var(--mono);color:var(--muted);font-size:clamp(.95rem,2.2vw,1.2rem);min-height:1.8em}
+.typing::after{content:"|";color:var(--accent);margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero p.desc{color:var(--muted);max-width:520px;margin:16px 0 28px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:28px}
+.socials{display:flex;gap:14px}
+.socials a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--border);
+  background:var(--glass);transition:.3s}
+.socials a:hover{border-color:var(--accent);box-shadow:var(--glow);transform:translateY(-3px)}
+.socials svg{width:22px;height:22px;fill:var(--accent)}
+/* Code window visual */
+.visual{position:relative;display:grid;place-items:center}
+.visual::before{content:"";position:absolute;width:85%;aspect-ratio:1;border-radius:50%;
+  border:2px dashed rgba(57,255,20,.35);animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.code-window{position:relative;width:min(400px,100%);background:rgba(30,16,51,.9);border:1px solid var(--accent);
+  border-radius:16px;box-shadow:var(--glow);font-family:var(--mono);font-size:.85rem;animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px)}}
+.dots{display:flex;gap:7px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.dots i{width:11px;height:11px;border-radius:50%;background:#7a5cb0}
+.dots i:first-child{background:var(--accent)}
+.code-window pre{padding:18px;color:var(--muted);overflow-x:auto;line-height:1.8}
+.k{color:var(--accent)}.s{color:#f0b6ff}
+.chip{position:absolute;padding:6px 14px;border-radius:30px;font-family:var(--mono);font-size:.8rem;
+  background:var(--bg2);border:1px solid var(--accent);color:var(--accent)}
+.chip.c1{top:2%;right:2%}.chip.c2{bottom:6%;left:0}
+
+/* ========== 4. ABOUT ========== */
+.about{max-width:760px;margin:0 auto 40px;text-align:center;color:var(--muted);font-size:1.05rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:760px;margin:auto}
+.stat{text-align:center}
+.stat b{display:block;font-size:2rem;color:var(--accent);text-shadow:var(--glow)}
+.stat span{color:var(--muted);font-size:.95rem}
+
+/* ========== 5. SKILLS ========== */
+.grid{display:grid;gap:22px}
+.skills-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card h3{font-size:1.1rem;margin-bottom:14px;color:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{padding:5px 14px;border-radius:30px;font-size:.82rem;background:rgba(57,255,20,.08);
+  border:1px solid rgba(57,255,20,.4);color:var(--text)}
+.tag.soft{background:rgba(200,184,232,.1);border-color:var(--border);color:var(--muted)}
+.skill-ic{font-family:var(--mono);font-size:1.5rem;color:var(--accent);margin-bottom:6px}
+
+/* ========== 6. PROJECTS ========== */
+.projects-grid{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+.project{display:flex;flex-direction:column;border-color:rgba(57,255,20,.35)}
+.project h3{color:var(--text);font-size:1.2rem}
+.project p{color:var(--muted);font-size:.95rem;margin-bottom:16px;flex:1}
+.project .tags{margin-bottom:20px}
+.project .btn{align-self:flex-start}
+
+/* ========== 7. EDUCATION TIMELINE ========== */
+.timeline{position:relative;max-width:760px;margin:auto;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:8px;top:0;bottom:0;width:3px;border-radius:3px;
+  background:linear-gradient(var(--accent),rgba(200,184,232,.2))}
+.tl-item{position:relative;margin-bottom:28px}
+.tl-item::before{content:"";position:absolute;left:-34px;top:26px;width:19px;height:19px;border-radius:50%;
+  background:var(--bg);border:3px solid var(--muted)}
+.tl-item.current::before{border-color:var(--accent);background:var(--accent);box-shadow:var(--glow)}
+.tl-item.current .card{border-color:var(--accent);box-shadow:var(--glow)}
+.tl-year{font-family:var(--mono);color:var(--accent);font-size:.85rem}
+.tl-item h3{font-size:1.1rem;margin:4px 0}
+.tl-item p{color:var(--muted);font-size:.95rem}
+.tl-item .score{display:inline-block;margin-top:8px;font-weight:600;color:var(--accent)}
+
+/* ========== 8. CERTIFICATIONS ========== */
+.cert-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.cert{text-align:center}
+.cert svg{width:46px;height:46px;stroke:var(--accent);fill:none;stroke-width:1.6;margin-bottom:12px;transition:.3s}
+.cert:hover svg{transform:scale(1.15) rotate(-6deg);filter:drop-shadow(0 0 8px var(--accent))}
+.cert h3{color:var(--text);font-size:1rem;margin:0}
+
+/* ========== 9. EXTRAS ========== */
+.extra-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.extra-grid li{padding:6px 0;color:var(--muted)}
+.extra-grid li::before{content:"\25B8";color:var(--accent);margin-right:10px}
+
+/* ========== 10. CONTACT ========== */
+.contact{display:grid;grid-template-columns:1fr 1.2fr;gap:30px;align-items:start}
+.info li{display:flex;gap:14px;align-items:center;margin-bottom:20px;color:var(--muted)}
+.info b{display:block;color:var(--text)}
+.info .ic{width:46px;height:46px;flex:none;display:grid;place-items:center;border-radius:12px;
+  background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.4);font-size:1.2rem}
+.field{margin-bottom:16px}
+label{display:block;margin-bottom:6px;font-size:.9rem;color:var(--muted)}
+input,textarea{width:100%;padding:12px 16px;border-radius:12px;background:rgba(18,9,31,.7);
+  border:1px solid var(--border);color:var(--text);font:inherit;transition:.3s}
+input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:var(--glow)}
+textarea{resize:vertical;min-height:120px}
+.err{display:none;color:#ff7aa8;font-size:.82rem;margin-top:4px}
+.field.invalid input,.field.invalid textarea{border-color:#ff7aa8}
+.field.invalid .err{display:block}
+#formMsg{display:none;margin-top:16px;padding:14px;border-radius:12px;border:1px solid var(--accent);
+  background:rgba(57,255,20,.08);color:var(--accent)}
+
+/* ========== 11. FOOTER ========== */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:34px 0;text-align:center}
+footer p{color:var(--muted);margin-bottom:14px}
+.foot-links{display:flex;justify-content:center;flex-wrap:wrap;gap:22px}
+.foot-links a{color:var(--accent)}
+.foot-links a:hover{text-shadow:var(--glow)}
+#toTop{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;border:2px solid var(--accent);
+  background:var(--bg2);color:var(--accent);font-size:1.3rem;cursor:pointer;box-shadow:var(--glow);
+  opacity:0;pointer-events:none;transition:.3s;z-index:90}
+#toTop.show{opacity:1;pointer-events:auto}
+#toTop:hover{background:var(--accent);color:var(--bg)}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:none}
+
+/* ========== 12. RESPONSIVE ========== */
+@media(max-width:900px){
+  .hero,.contact{grid-template-columns:1fr}
+  .visual{order:-1;max-width:420px;margin:auto}
+  .burger{display:block}
+  .nav-links{position:fixed;top:68px;left:0;right:0;flex-direction:column;gap:20px;padding:28px;
+    background:rgba(18,9,31,.97);border-bottom:1px solid var(--border);
+    transform:translateY(-130%);transition:transform .4s;max-height:calc(100vh - 68px);overflow-y:auto}
+  .nav-links.open{transform:none}
+}
+@media(max-width:560px){
+  section{padding:70px 0}
+  .stats{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<header>
+  <nav class="container">
+    <a href="#home" class="logo">VINO.</a>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="btn btn-fill btn-sm">Let’s Connect</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+<!-- ===== HERO ===== -->
+<section id="home">
+  <div class="container hero">
+    <div>
+      <p class="hello">HELLO, I’M</p>
+      <h1>Vinothini <span class="accent">S</span></h1>
+      <!-- Typing text is set in the script (roles array) -->
+      <p class="typing" id="typing" aria-label="MCA Student, Aspiring Software Developer, Web Developer"></p>
+      <p class="desc">Passionate about developing <span class="accent">web applications</span>, solving problems, and exploring new technologies.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-fill">View My Projects</a>
+        <!-- Put your resume file next to index.html and name it resume.pdf -->
+        <a href="resume.pdf" download class="btn btn-line">Download Resume</a>
+      </div>
+      <div class="socials">
+        <a href="https://github.com/Vinothini-MCA" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.700 0-1.300.5-2.300 1.200-3.100-.1-.3-.5-1.500.1-3.100 0 0 1-.3 3.200 1.200a11 11 0 0 1 5.800 0C17.100 5.800 18.100 6.100 18.100 6.100c.6 1.600.2 2.800.1 3.100.8.8 1.200 1.800 1.200 3.100 0 4.400-2.700 5.400-5.300 5.700.4.400.8 1.100.8 2.200v3.300c0 .3.2.7.8.6A11.500 11.500 0 0 0 23.500 12 11.500 11.500 0 0 0 12 .5z"/></svg>
+        </a>
+        <a href="mailto:s.vinothini.118@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24"><path d="M2 5.500A2.500 2.500 0 0 1 4.500 3h15A2.500 2.500 0 0 1 22 5.500v13a2.500 2.500 0 0 1-2.500 2.500h-15A2.500 2.500 0 0 1 2 18.500zm2.200.2L12 11.800l7.800-6.100zM20 8l-8 6.200L4 8v10.500c0 .3.200.5.500.5h15c.3 0 .5-.2.500-.5z"/></svg>
+        </a>
+      </div>
+    </div>
+    <!-- Developer-themed visual built from CSS only -->
+    <div class="visual" aria-hidden="true">
+      <div class="code-window">
+        <div class="dots"><i></i><i></i><i></i></div>
+<pre><span class="k">const</span> developer = {
+  name: <span class="s">"Vinothini S"</span>,
+  course: <span class="s">"MCA"</span>,
+  stack: [<span class="s">"Python"</span>, <span class="s">"JavaScript"</span>,
+          <span class="s">"React"</span>, <span class="s">"Supabase"</span>],
+  learning: <span class="s">".NET"</span>
+};</pre>
+      </div>
+      <span class="chip c1">&lt;/&gt;</span>
+      <span class="chip c2">{ code }</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="container reveal">
+    <h2 class="title">About Me</h2>
+    <p class="subtitle">A little about who I am</p>
+    <p class="about">I am a Master of Computer Applications (MCA) student with practical experience in developing web applications and academic projects. I have knowledge of Python, JavaScript, HTML, CSS, React, and databases such as MySQL, MongoDB, and Supabase. I enjoy building interactive applications, solving problems, and continuously learning new technologies.</p>
+    <div class="stats">
+      <div class="card stat"><b><span class="counter" data-target="6">0</span>+</b><span>Projects</span></div>
+      <div class="card stat"><b>MCA</b><span>Student</span></div>
+      <div class="card stat"><b>Web</b><span>Development Enthusiast</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+  <div class="container reveal">
+    <h2 class="title">Technical Skills</h2>
+    <p class="subtitle">Technologies I work with</p>
+    <div class="grid skills-grid">
+      <div class="card"><div class="skill-ic">&gt;_</div><h3>Programming Languages</h3>
+        <div class="tags"><span class="tag">Python</span><span class="tag">JavaScript</span></div></div>
+      <div class="card"><div class="skill-ic">&lt;/&gt;</div><h3>Web Technologies</h3>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></div></div>
+      <div class="card"><div class="skill-ic">&#9883;</div><h3>Frameworks &amp; Libraries</h3>
+        <div class="tags"><span class="tag">React (Basic)</span></div></div>
+      <div class="card"><div class="skill-ic">&#9776;</div><h3>Databases</h3>
+        <div class="tags"><span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">Supabase</span></div></div>
+      <div class="card"><div class="skill-ic">&#9881;</div><h3>Tools</h3>
+        <div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Microsoft Excel (Basic)</span></div></div>
+      <div class="card"><div class="skill-ic">&#10022;</div><h3>Currently Learning</h3>
+        <div class="tags"><span class="tag soft">.NET (Beginner)</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS (copy a card to add a project) ===== -->
+<section id="projects">
+  <div class="container reveal">
+    <h2 class="title">Projects</h2>
+    <p class="subtitle">Things I have built</p>
+    <div class="grid projects-grid">
+      <article class="card project"><h3>CloudVerse – College Club Website</h3>
+        <p>Developed a responsive website for a college club to showcase activities, events, and announcements. Integrated Supabase to manage and publish club-related content.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Supabase</span></div>
+        <a class="btn btn-line btn-sm" href="https://github.com/Vinothini-MCA/cloudverse-new" target="_blank" rel="noopener">View on GitHub</a></article>
+
+      <article class="card project"><h3>Personalized AI Chatbot</h3>
+        <p>Developed an AI-powered chatbot with a web-based chat interface and integrated Google’s Gemini API to generate responses.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">JavaScript</span><span class="tag">Gemini API</span></div>
+        <a class="btn btn-line btn-sm" href="https://github.com/Vinothini-MCA/chatbot" target="_blank" rel="noopener">View on GitHub</a></article>
+
+      <article class="card project"><h3>SupplyChainIQ</h3>
+        <p>Developed a web-based application focused on supply chain management with interactive and dynamic functionality.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+        <a class="btn btn-line btn-sm" href="https://github.com/Vinothini-MCA/SupplyChain_IQ" target="_blank" rel="noopener">View on GitHub</a></article>
+
+      <article class="card project"><h3>Smart Waste Management</h3>
+        <p>Developed a web-based application focused on smart waste management with an interactive interface.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+        <a class="btn btn-line btn-sm" href="https://github.com/Vinothini-MCA/SmartWasteManagement" target="_blank" rel="noopener">View on GitHub</a></article>
+
+      <article class="card project"><h3>Certificate Generator</h3>
+        <p>Developed a web-based application for generating certificates with interactive certificate-related functionality.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+        <a class="btn btn-line btn-sm" href="https://github.com/Vinothini-MCA/certificate_generator" target="_blank" rel="noopener">View on GitHub</a></article>
+
+      <article class="card project"><h3>Udemy React</h3>
+        <p>Developed a beginner-level React application to practise component-based development and reusable components.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">JavaScript</span></div>
+        <a class="btn btn-line btn-sm" href="https://github.com/Vinothini-MCA/Udemy-React" target="_blank" rel="noopener">View on GitHub</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EDUCATION ===== -->
+<section id="education">
+  <div class="container reveal">
+    <h2 class="title">Education</h2>
+    <p class="subtitle">My academic journey</p>
+    <div class="timeline">
+      <div class="tl-item current"><div class="card">
+        <span class="tl-year">2025 – 2027</span>
+        <h3>Master of Computer Applications (MCA)</h3>
+        <p>E.G.S. Pillay Engineering College, Nagapattinam</p>
+        <span class="score">9.38 CGPA – 1st Semester</span></div></div>
+      <div class="tl-item"><div class="card">
+        <span class="tl-year">2022 – 2025</span>
+        <h3>Bachelor of Science (Computer Science)</h3>
+        <p>Meenakshi Chandrasekaran College of Arts and Science, Pattukkottai</p>
+        <span class="score">82.85%</span></div></div>
+      <div class="tl-item"><div class="card">
+        <span class="tl-year">2021 – 2022</span>
+        <h3>Higher Secondary (12th)</h3>
+        <p>St. Theresa’s Girls Higher Secondary School</p>
+        <span class="score">81.83%</span></div></div>
+      <div class="tl-item"><div class="card">
+        <span class="tl-year">2019 – 2020</span>
+        <h3>SSLC (10th)</h3>
+        <p>St. Theresa’s Girls Higher Secondary School</p>
+        <span class="score">71%</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CERTIFICATIONS ===== -->
+<section id="certifications">
+  <div class="container reveal">
+    <h2 class="title">Certifications</h2>
+    <p class="subtitle">Courses and credentials</p>
+    <div class="grid cert-grid">
+      <!-- Each card uses the same simple certificate icon (inline SVG) -->
+      <div class="card cert"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M7 8h10M7 11h6M9 16l-1 5 4-2 4 2-1-5"/></svg><h3>NPTEL Certification in Internet of Things (IoT)</h3></div>
+      <div class="card cert"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M7 8h10M7 11h6M9 16l-1 5 4-2 4 2-1-5"/></svg><h3>ChatGPT 101 – Simplilearn SkillUp</h3></div>
+      <div class="card cert"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M7 8h10M7 11h6M9 16l-1 5 4-2 4 2-1-5"/></svg><h3>Advanced Post Graduate Diploma in Computer Applications (APGDCA)</h3></div>
+      <div class="card cert"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M7 8h10M7 11h6M9 16l-1 5 4-2 4 2-1-5"/></svg><h3>Python Basic Programs – Great Learning Academy</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACTIVITIES, SOFT SKILLS, LANGUAGES ===== -->
+<section id="extras">
+  <div class="container reveal">
+    <h2 class="title">Beyond the Code</h2>
+    <p class="subtitle">Activities, soft skills and languages</p>
+    <div class="grid extra-grid">
+      <div class="card"><h3>Additional Activities</h3><ul>
+        <li>Research Paper Presentation</li><li>Junior Grade English Typewriting</li></ul></div>
+      <div class="card"><h3>Soft Skills</h3><ul>
+        <li>Communication</li><li>Adaptability</li><li>Quick Learning</li><li>Team Collaboration</li><li>Time Management</li></ul></div>
+      <div class="card"><h3>Languages</h3><ul><li>Tamil</li><li>English</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="container reveal">
+    <h2 class="title">Let’s Build Something Amazing Together</h2>
+    <p class="subtitle">Have an idea or an opportunity? Get in touch.</p>
+    <div class="contact">
+      <ul class="info card">
+        <li><span class="ic">&#9993;</span><div><b>Email</b><a href="mailto:s.vinothini.118@gmail.com">s.vinothini.118@gmail.com</a></div></li>
+        <li><span class="ic">&#9742;</span><div><b>Phone</b><a href="tel:+918883472115">+91 8883472115</a></div></li>
+        <li><span class="ic">&#9906;</span><div><b>Location</b>Tamil Nadu, India</div></li>
+      </ul>
+      <form class="card" id="contactForm" novalidate>
+        <div class="field"><label for="name">Name</label><input id="name" type="text" autocomplete="name"><span class="err">Please enter your name (at least 2 characters).</span></div>
+        <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email"><span class="err">Please enter a valid email address.</span></div>
+        <div class="field"><label for="message">Message</label><textarea id="message"></textarea><span class="err">Please write a message (at least 10 characters).</span></div>
+        <button type="submit" class="btn btn-fill">Send Message</button>
+        <p id="formMsg" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <p>Designed &amp; Developed by <span class="accent">Vinothini S</span></p>
+    <div class="foot-links">
+      <a href="https://github.com/Vinothini-MCA" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:s.vinothini.118@gmail.com">Email</a>
+      <a href="https://my-portfolio-seven-sooty-60.vercel.app/" target="_blank" rel="noopener">Portfolio</a>
+    </div>
+  </div>
+</footer>
+<button id="toTop" aria-label="Back to top">&#8593;</button>
+
+<script>
+/* ========== 1. MOBILE MENU ========== */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+function closeMenu(){ navLinks.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
+burger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu)); // close after tapping a link
+
+/* ========== 2. TYPING ANIMATION ========== */
+// Edit this list to change the hero text
+const roles = ['MCA Student', 'Aspiring Software Developer', 'Web Developer'];
+const typingEl = document.getElementById('typing');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let roleIdx = 0, charIdx = 0, deleting = false;
+function type(){
+  const word = roles[roleIdx];
+  charIdx += deleting ? -1 : 1;
+  typingEl.textContent = word.slice(0, charIdx);
+  let delay = deleting ? 45 : 95;
+  if(!deleting && charIdx === word.length){ deleting = true; delay = 1400; }
+  else if(deleting && charIdx === 0){ deleting = false; roleIdx = (roleIdx + 1) % roles.length; delay = 400; }
+  setTimeout(type, delay);
+}
+if(reduceMotion){ typingEl.textContent = roles.join(' | '); } else { type(); }
+
+/* ========== 3. SCROLL REVEAL + ANIMATED COUNTERS ========== */
+function animateCounter(el){
+  const target = +el.dataset.target; let n = 0;
+  const step = Math.max(1, Math.ceil(target / 30));
+  const t = setInterval(() => { n = Math.min(n + step, target); el.textContent = n; if(n >= target) clearInterval(t); }, 50);
+}
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    e.target.querySelectorAll('.counter').forEach(animateCounter); // run counters once, when visible
+    revealObs.unobserve(e.target);
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ========== 4. ACTIVE NAV LINK ON SCROLL ========== */
+const sections = document.querySelectorAll('main section[id]');
+const links = document.querySelectorAll('.nav-links a:not(.btn)');
+const toTop = document.getElementById('toTop');
+function onScroll(){
+  const y = window.scrollY + 120;
+  let current = 'home';
+  sections.forEach(s => { if(y >= s.offsetTop) current = s.id; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  toTop.classList.toggle('show', window.scrollY > 500); // 5. back-to-top visibility
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ========== 6. CONTACT FORM VALIDATION ========== */
+// Note: there is no backend, so nothing is actually sent. To receive messages,
+// connect a service such as Formspree, EmailJS or Web3Forms inside the submit handler.
+const form = document.getElementById('contactForm');
+const formMsg = document.getElementById('formMsg');
+const rules = {
+  name:    v => v.trim().length >= 2,
+  email:   v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+  message: v => v.trim().length >= 10
+};
+function check(id){
+  const input = document.getElementById(id);
+  const ok = rules[id](input.value);
+  input.closest('.field').classList.toggle('invalid', !ok);
+  return ok;
+}
+Object.keys(rules).forEach(id => document.getElementById(id).addEventListener('input', () => check(id)));
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const allValid = Object.keys(rules).map(check).every(Boolean);
+  formMsg.style.display = 'block';
+  if(!allValid){ formMsg.style.color = '#ff7aa8'; formMsg.style.borderColor = '#ff7aa8'; formMsg.textContent = 'Please fix the highlighted fields and try again.'; return; }
+  formMsg.style.color = ''; formMsg.style.borderColor = '';
+  formMsg.textContent = 'Thank you! Your message passed validation. This demo form is not connected to an email service yet, so please email me directly at s.vinothini.118@gmail.com.';
+  form.reset();
+});
+</script>
+</body>
+</html>
